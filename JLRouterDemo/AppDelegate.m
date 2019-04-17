@@ -7,6 +7,7 @@
 //
 
 #import "AppDelegate.h"
+#import "JLRoutes.h"
 
 @interface AppDelegate ()
 
@@ -47,5 +48,19 @@
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
 
-
+- (Boolean)application:(UIApplication *)app openURL:(nonnull NSURL *)url options:(nonnull NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options{
+    
+    NSString *str = url.absoluteString;
+    NSArray *arr = [str componentsSeparatedByString:@"://"];
+    if ([[arr.firstObject lowercaseString] isEqualToString:@"jlroutesone"]) {
+        
+        return [[JLRoutes routesForScheme:@"JLRoutesOne"]routeURL:url];
+        
+    }else if ([[arr.firstObject lowercaseString] isEqualToString:@"jlroutestwo"]){
+        
+        return [[JLRoutes routesForScheme:@"JLRoutesTwo"]routeURL:url];
+    }
+    
+    return [[JLRoutes routesForScheme:@"JLRoutesThree"]routeURL:url];
+}
 @end

@@ -7,6 +7,7 @@
 //
 
 #import "ViewController.h"
+#import "JLRoutes.h"
 
 @interface ViewController ()
 
@@ -16,14 +17,19 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view, typically from a nib.
+
+    UIButton *btn = [[UIButton alloc]initWithFrame:CGRectMake(80, 100, 100, 40)];
+    btn.backgroundColor = [UIColor redColor];
+    [btn addTarget:self action:@selector(clickAction:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:btn];
+    
 }
 
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+-(void)clickAction:(UIButton *)btn{
+    // 点击通过JLRoutes跳转  通过JLRoutes跳转可以解耦，在正式app中一般都是分模块开发 比较方便
+    [[JLRoutes routesForScheme:@"nice"] routeURL:[NSURL URLWithString:@"one"] withParameters:@{@"nav":self.navigationController}];
 }
+
 
 
 @end
